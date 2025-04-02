@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/backgroundofquatroapp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QUARTO"
+        android:textSize="48sp"
+        android:textColor="#FFC0CB"
+        android:fontFamily="sans-serif-black"
+        android:layout_marginBottom="70dp" />
+
+    <TextView
+        android:id="@+id/tapToEnterText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tap to"
+        android:textSize="24sp"
+        android:textColor="#FF69B4"
+        android:layout_marginBottom="10dp" />
+
+    <Button
+        android:id="@+id/enterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ENTER"
+        android:textSize="32sp"
+        android:background="@drawable/button_background"
+        android:textColor="#FF69B4"
+        android:padding="10dp"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/main_ativity_image_view" />
+
+
+</LinearLayout>

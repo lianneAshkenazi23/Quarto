@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/backgroundofquatroapp"
+    android:padding="16dp"
+    tools:context=".SignInActivity">
+
+    <!-- כותרת "SIGN IN" -->
+    <TextView
+        android:id="@+id/signInTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SIGN IN"
+        android:textSize="48sp"
+        android:textColor="#FFC0CB"
+        android:fontFamily="sans-serif-black"
+        android:layout_marginBottom="40dp" />
+
+    <!-- שדה להזנת שם משתמש -->
+    <EditText
+        android:id="@+id/usernameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter username"
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textColor="@android:color/white"
+        android:textColorHint="#FFC0CB"
+        android:layout_marginBottom="20dp" />
+
+    <!-- שדה להזנת סיסמה -->
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter password"
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textColor="@android:color/white"
+        android:textColorHint="#FFC0CB"
+        android:inputType="textPassword"
+        android:layout_marginBottom="70dp" />
+
+    <!-- כפתור SING IN -->
+    <Button
+        android:id="@+id/signInButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SING IN"
+        android:textSize="23sp"
+        android:background="@drawable/sign_in_button_background"
+        android:textColor="#FF69B4"
+        android:padding="12dp"
+        android:layout_marginBottom="20dp" />
+
+    <!-- כפתור Haven’t signed up yet? -->
+    <TextView
+        android:id="@+id/signUpText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Haven’t signed up yet?"
+        android:textSize="20sp"
+        android:textColor="#FFC0CB"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-light"
+        android:clickable="true"
+        android:focusable="true" />
+</LinearLayout>

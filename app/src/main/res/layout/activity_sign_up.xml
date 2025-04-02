@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/backgroundofquatroapp"
+    android:padding="16dp"
+    tools:context=".SignUpActivity">
+
+    <!-- כותרת "SIGN UP" -->
+    <TextView
+        android:id="@+id/signUpTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SIGN UP"
+        android:textSize="48sp"
+        android:textColor="#FFC0CB"
+        android:fontFamily="sans-serif-black"
+        android:layout_marginBottom="40dp" />
+
+    <!-- שדה להזנת שם פרטי -->
+    <EditText
+        android:id="@+id/firstNameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your FIRST name"
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textColor="@android:color/white"
+        android:textColorHint="#FFC0CB"
+        android:layout_marginBottom="15dp" />
+
+    <!-- שדה להזנת שם משפחה -->
+    <EditText
+        android:id="@+id/lastNameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your LAST name"
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textColor="@android:color/white"
+        android:textColorHint="#FFC0CB"
+        android:layout_marginBottom="15dp" />
+
+    <!-- שדה להזנת שם משתמש -->
+    <EditText
+        android:id="@+id/usernameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter an username"
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textColor="@android:color/white"
+        android:textColorHint="#FFC0CB"
+        android:layout_marginBottom="15dp" />
+
+    <!-- שדה להזנת סיסמה -->
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter a password"
+        android:padding="12dp"
+        android:background="@drawable/input_background"
+        android:textColor="@android:color/white"
+        android:textColorHint="#FFC0CB"
+        android:inputType="textPassword"
+        android:layout_marginBottom="30dp" />
+
+    <!-- כפתור SING UP -->
+    <Button
+        android:id="@+id/signUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SING UP"
+        android:textSize="18sp"
+        android:background="@drawable/button_background"
+        android:textColor="#FF69B4"
+        android:padding="12dp" />
+
+</LinearLayout>
