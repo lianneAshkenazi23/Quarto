@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1027775264771",
+    "firebase_url": "https://quatroapplianneashke-488f740a-default-rtdb.firebaseio.com",
+    "project_id": "quatroapplianneashke-488f740a",
+    "storage_bucket": "quatroapplianneashke-488f740a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027775264771:android:90bad88966f80e665a7636",
+        "android_client_info": {
+          "package_name": "a.lianne.quarto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDu1zYlwWA0kGtcDpvWho8pKUOWJNhXSLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

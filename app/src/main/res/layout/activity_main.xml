@@ -36,9 +36,35 @@
         android:text="ENTER"
         android:textSize="32sp"
         android:background="@drawable/button_background"
+        android:backgroundTint="@null"
         android:textColor="#FF69B4"
         android:padding="10dp"
         android:layout_marginTop="10dp" />
+
+    <Button
+        android:id="@+id/leaderboardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Leaderboard"
+        android:textSize="32sp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="@null"
+        android:textColor="#FF69B4"
+        android:padding="10dp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log Out"
+        android:textSize="20sp"
+        android:textColor="#FFC0CB"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-light"
+        android:clickable="true"
+        android:focusable="true" />
 
     <ImageView
         android:id="@+id/imageView"

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/backgroundofquatroapp"
+    tools:context=".GameFragment">
+
+    <TextView
+        android:id="@+id/infoLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:text="Player 2 – choose a piece for opponent" />
+
+    <a.lianne.quarto.QuartoBoardView
+        android:id="@+id/boardView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/chosenPieceLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The chosen piece:"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        />
+
+    <a.lianne.quarto.PieceThumbView
+        android:id="@+id/pieceView"
+        android:layout_width="16dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/actionBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Choose Piece" />
+
+</LinearLayout>

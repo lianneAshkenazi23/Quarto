@@ -26,6 +26,10 @@ public class QuartoBoard {
         return false;
     }
 
+    public Piece getPiece(int row, int col) {
+        return cells[row][col];
+    }
+
     public boolean didGameEnd() {
         if (checkWin()) return true;
         for (int i = 0; i < BOARD_SIZE; i++) {
@@ -33,7 +37,7 @@ public class QuartoBoard {
                 if (cells[i][j] == null) return false;
             }
         }
-        return true;
+        return true; // TIE
     }
 
     public boolean checkWin() {
@@ -59,4 +63,19 @@ public class QuartoBoard {
             (p1.isSquare == p2.isSquare && p1.isSquare == p3.isSquare && p1.isSquare == p4.isSquare));
     }
 
+    public String toString() {
+        String s = "";
+
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                if (cells[i][j] == null) {
+                    s += "null ";
+                } else {
+                    s += cells[i][j].toString() + " ";
+                }
+            }
+            s += "\n";
+        }
+        return s;
+    }
 }

@@ -24,15 +24,16 @@
 
     <!-- שדה להזנת שם משתמש -->
     <EditText
-        android:id="@+id/usernameInput"
+        android:id="@+id/emailInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter username"
-        android:padding="12dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/input_background"
+        android:hint="Enter email"
+        android:padding="12dp"
+        android:inputType="textEmailAddress"
         android:textColor="@android:color/white"
-        android:textColorHint="#FFC0CB"
-        android:layout_marginBottom="20dp" />
+        android:textColorHint="#FFC0CB" />
 
     <!-- שדה להזנת סיסמה -->
     <EditText
@@ -52,12 +53,12 @@
         android:id="@+id/signInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SING IN"
-        android:textSize="23sp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/sign_in_button_background"
-        android:textColor="#FF69B4"
         android:padding="12dp"
-        android:layout_marginBottom="20dp" />
+        android:text="SIGN IN"
+        android:textColor="#FF69B4"
+        android:textSize="23sp" />
 
     <!-- כפתור Haven’t signed up yet? -->
     <TextView
