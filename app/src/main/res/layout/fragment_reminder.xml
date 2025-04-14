@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="26dp"
+    tools:context=".ReminderFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:text="Set a daily reminder!"
+        android:layout_marginBottom="16dp"/>
+<!--       white color-->
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner"
+        android:numbersTextColor="@color/white"
+        android:numbersSelectorColor="@color/white"
+        android:headerBackground="@color/white"
+        android:theme="@style/WhiteTimePicker"
+        />
+
+    <Switch
+        android:id="@+id/switchReminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enable reminder"
+        android:checked="false"
+        android:textColor="@color/white"
+        android:thumbTint="@color/switch_track_color"
+        android:trackTint="#E3E3E3"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Set reminder" />
+
+</LinearLayout>

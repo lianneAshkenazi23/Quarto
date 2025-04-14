@@ -27,55 +27,86 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        // הפניות לשדות ולכפתור
         EditText firstNameInput = findViewById(R.id.firstNameInput);
         EditText lastNameInput = findViewById(R.id.lastNameInput);
         EditText emailInput = findViewById(R.id.emailInput);
         EditText passwordInput = findViewById(R.id.passwordInput);
         Button signUpButton = findViewById(R.id.signUpButton);
 
-        // לחיצה על כפתור SING UP
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String firstName = firstNameInput.getText().toString().trim();
-                String lastName = lastNameInput.getText().toString().trim();
-                String email = emailInput.getText().toString().trim();
-                String password = passwordInput.getText().toString().trim();
+        signUpButton.setOnClickListener(v -> {
+            String firstName = firstNameInput.getText().toString().trim();
+            String lastName = lastNameInput.getText().toString().trim();
+            String email = emailInput.getText().toString().trim();
+            String password = passwordInput.getText().toString().trim();
 
-                if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(SignUpActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-                } if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"))
-                    Toast.makeText(SignUpActivity.this, "Invalid email format", Toast.LENGTH_SHORT).show();
-                else {
-                    mAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(SignUpActivity.this, task -> {
-                                if (task.isSuccessful()) {
-
-                                    String userId = mAuth.getCurrentUser().getUid();
-
-                                    HashMap<String, Object> user = new HashMap<>();
-                                    user.put("firstName", firstName);
-                                    user.put("lastName", lastName);
-                                    user.put("email", email);
-
-                                    db.collection("users").document(userId).set(user).addOnCompleteListener(SignUpActivity.this, task1 -> {
-                                        if (task1.isSuccessful()) {
-                                            Log.d("TAG", "User added to Firestore");
-                                            Intent intent = new Intent(SignUpActivity.this, GameActivity.class);
-                                            startActivity(intent);
-                                        } else {
-                                            Toast.makeText(SignUpActivity.this, "Sign-up failed!", Toast.LENGTH_SHORT).show();
-                                            Log.w("TAG", "Error adding user to Firestore", task1.getException());
-                                        }
-                                    });
-                                } else {
-                                    Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(SignUpActivity.this, "Sign-up failed.", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                }
+            if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(SignUpActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+                Toast.makeText(SignUpActivity.this, "Invalid email format", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            registerUser(firstName, lastName, email, password);
         });
+    }
+
+    private void registerUser(String firstName, String lastName, String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (!task.isSuccessful()) {
+                        showError("Sign-up failed.", task.getException());
+                        return;
+                    }
+
+                    String userId = mAuth.getCurrentUser().getUid();
+                    saveUserToFirestore(userId, firstName, lastName, email);
+                });
+    }
+
+    private void saveUserToFirestore(String userId, String firstName, String lastName, String email) {
+        HashMap<String, Object> user = new HashMap<>();
+        user.put("firstName", firstName);
+        user.put("lastName", lastName);
+        user.put("email", email);
+
+        db.collection("users").document(userId).set(user)
+                .addOnCompleteListener(this, task -> {
+                    if (!task.isSuccessful()) {
+                        showError("Failed to add user to Firestore.", task.getException());
+                        return;
+                    }
+
+                    saveScoreToFirestore(userId, email);
+                });
+    }
+
+    private void saveScoreToFirestore(String userId, String email) {
+        HashMap<String, Object> scores = new HashMap<>();
+        scores.put("score", 0);
+        scores.put("email", email);
+
+        db.collection("scores").document(userId).set(scores)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("TAG", "Sign-up successful, user and score saved.");
+                        navigateToGame();
+                    } else {
+                        showError("Failed to add score to Firestore.", task.getException());
+                    }
+                });
+    }
+
+    private void navigateToGame() {
+        Intent intent = new Intent(SignUpActivity.this, GameActivity.class);
+        startActivity(intent);
+        finish(); // Optional: finish SignUpActivity so user can't go back
+    }
+
+    private void showError(String message, Exception e) {
+        Toast.makeText(SignUpActivity.this, message, Toast.LENGTH_SHORT).show();
+        Log.w("TAG", message, e);
     }
 }

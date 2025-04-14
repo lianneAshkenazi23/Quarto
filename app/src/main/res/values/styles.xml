@@ -4,4 +4,12 @@
         <item name="android:background">@color/gray_400</item>
         <item name="exampleColor">@color/light_blue_400</item>
     </style>
+    <style name="WhiteTimePicker" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+
+        <item name="android:colorControlNormal">@color/white</item>
+        <item name="colorAccent">@color/pink</item>
+    </style>
 </resources>

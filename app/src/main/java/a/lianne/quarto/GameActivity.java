@@ -77,7 +77,7 @@ public class GameActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
+        // hamburger menu
         NavigationView nav = findViewById(R.id.sideNav);
         nav.setNavigationItemSelectedListener(item -> {
             drawer.closeDrawer(GravityCompat.START);
@@ -87,6 +87,19 @@ public class GameActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.menu_rules) {
                 switchToRules();
                 return true;
+            }
+            else if (item.getItemId() == R.id.menu_reminder) {
+                switchToReminder();
+                return true;
+            }
+
+            else if (item.getItemId() == R.id.menu_leaderboard) {
+                switchToLeaderboard();
+                return true;
+            }
+            else if (item.getItemId() == R.id.menu_logout) {
+                mAuth.signOut();
+                finish();
             }
             return false;
         });
@@ -102,6 +115,7 @@ public class GameActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    // 3 dots menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (toggle.onOptionsItemSelected(item)) return true;
@@ -110,6 +124,14 @@ public class GameActivity extends AppCompatActivity {
             return true;
         } else if (item.getItemId() == R.id.menu_rules) {
             switchToRules();
+            return true;
+        }
+        else if (item.getItemId() == R.id.menu_reminder) {
+            switchToReminder();
+            return true;
+        }
+        else if (item.getItemId() == R.id.menu_leaderboard) {
+            switchToLeaderboard();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -126,6 +148,20 @@ public class GameActivity extends AppCompatActivity {
     public void switchToRules() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainer, RulesFragment.newInstance())
+                .addToBackStack(null)
+                .commit();
+    }
+
+    public void switchToReminder() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, ReminderFragment.newInstance())
+                .addToBackStack(null)
+                .commit();
+    }
+
+    public void switchToLeaderboard() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, LeaderboardFragment.newInstance())
                 .addToBackStack(null)
                 .commit();
     }

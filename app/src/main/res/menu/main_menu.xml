@@ -6,4 +6,16 @@
     <item
         android:id="@+id/menu_rules"
         android:title="Read the rules" />
+    <item
+        android:id="@+id/menu_reminder"
+        android:title="Set a daily reminder!" />
+    <item
+        android:id="@+id/menu_leaderboard"
+        android:title="Watch the Leaderboard" />
+
+    <item
+        android:id="@+id/menu_logout"
+        android:title="Logout" />
+
+
 </menu>
