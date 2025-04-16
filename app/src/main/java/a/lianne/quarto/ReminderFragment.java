@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -107,18 +108,20 @@ public class ReminderFragment extends Fragment {
 
     private void scheduleReminder(int hour, int minute) {
         Intent intent = new Intent(requireContext(), ReminderReceiver.class);
-        intent.putExtra("hour", savedHour);
-        intent.putExtra("minute", savedMinute);
+        intent.putExtra("hour", hour);
+        intent.putExtra("minute", minute);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 requireContext(),
                 0,
                 intent,
-                PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
         if (pendingIntent != null) {
             Log.d("QB", "Reminder already set 2");
+            // print the set reminder from the intent
+
         } else {
             Log.d("QB", "Reminder not set");
         }
@@ -131,17 +134,35 @@ public class ReminderFragment extends Fragment {
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
 
+
+
         AlarmManager alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (alarmManager.canScheduleExactAlarms()) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            } else {
+                Log.d("ReminderFragment", "Permission to schedule exact alarms not granted");
+            }
+        } else {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        }
+        isReminderEnabled = true;
     }
 
     private void cancelReminder() {
         AlarmManager alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(requireContext(), ReminderReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                requireContext(),
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         if (pendingIntent != null) {
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
+            isReminderEnabled = false;
+            Log.d("ReminderFragment", "Reminder canceled");
         }
     }
 }
