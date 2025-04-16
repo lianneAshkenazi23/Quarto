@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +16,15 @@ import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class LeaderboardFragment extends Fragment {
 
     private FirebaseFirestore db;
+    private RecyclerView recyclerView;
+    private List<LeaderboardEntry> leaderboardEntries = new ArrayList<>();
 
     public LeaderboardFragment() {
         // Required empty public constructor
@@ -42,18 +50,24 @@ public class LeaderboardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        recyclerView = view.findViewById(R.id.leaderboardRecyclerView);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        LeaderboardAdapter adapter = new LeaderboardAdapter(leaderboardEntries);
+        recyclerView.setAdapter(adapter);
+
         db = FirebaseFirestore.getInstance();
         db.collection("scores").get().addOnCompleteListener(getActivity(), task -> {
             if (task.isSuccessful())  {
-                TableLayout table = view.findViewById(R.id.leaderboardTable);
-                for (int i = 0; i < task.getResult().size(); i++) {
-                    String email = task.getResult().getDocuments().get(i).getString("email");
-//                   String firstName = task.getResult().getDocuments().get(i).getString("firstName");
-                    Long score = task.getResult().getDocuments().get(i).getLong("score");
-                    TextView row = new TextView(requireContext());
-                    row.setText(email + " " + score);
-                    table.addView(row);
-                }
+                // translate firebase data to leaderboard entries
+                for (int i = 0; i < task.getResult().size(); i++)
+                    leaderboardEntries.add(new LeaderboardEntry(task.getResult().getDocuments().get(i).getString("email"), task.getResult().getDocuments().get(i).getLong("score")));
+                // sort leaderboard
+                Collections.sort(leaderboardEntries);
+                leaderboardEntries.add(0, new LeaderboardEntry("Placeholder", 0));
+                // add title entry to the head of the list
+
+                adapter.notifyDataSetChanged();
             }
         });
     }

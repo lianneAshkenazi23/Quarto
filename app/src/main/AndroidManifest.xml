@@ -24,9 +24,6 @@
         </receiver>
 
         <activity
-            android:name=".LeaderboardActivity"
-            android:exported="false" />
-        <activity
             android:name=".GameActivity"
             android:exported="false" />
         <activity

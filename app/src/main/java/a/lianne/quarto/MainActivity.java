@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         Button enterButton = findViewById(R.id.enterButton);
-        Button leaderboardButton = findViewById(R.id.leaderboardButton);
         TextView logoutButton = findViewById(R.id.logoutButton);
 
         if (mAuth.getCurrentUser() != null) {
@@ -51,11 +50,6 @@ public class MainActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(v -> {
             mAuth.signOut();
             logoutButton.setVisibility(View.GONE);
-        });
-
-        leaderboardButton.setOnClickListener( v -> {
-            Intent intent = new Intent(MainActivity.this, LeaderboardActivity.class);
-            startActivity(intent);
         });
 
     }
