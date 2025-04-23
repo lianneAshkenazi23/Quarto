@@ -16,6 +16,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:textColor="@android:color/black"
+        android:layout_marginTop="12dp"
         android:text="Player 2 – choose a piece for opponent" />
 
     <a.lianne.quarto.QuartoBoardView

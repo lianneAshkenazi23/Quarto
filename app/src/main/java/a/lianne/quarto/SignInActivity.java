@@ -45,6 +45,7 @@ public class SignInActivity extends AppCompatActivity {
                         Intent intent = new Intent(SignInActivity.this, GameActivity.class);
                         startActivity(intent);
                         Toast.makeText(SignInActivity.this, "Signed in successfully!", Toast.LENGTH_SHORT).show();
+                        finish();
                     } else {
                         Log.w("TAG", "signInWithEmail:failure", task.getException());
                         Toast.makeText(SignInActivity.this, "Sign-in failed.", Toast.LENGTH_SHORT).show();
@@ -63,6 +64,7 @@ public class SignInActivity extends AppCompatActivity {
                 // מעבר לעמוד SignUpActivity
                 Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

@@ -16,6 +16,10 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class GameFragment extends Fragment {
 
     private QuartoGameViewModel game;
@@ -25,11 +29,13 @@ public class GameFragment extends Fragment {
     private Button actionBtn;
 
     private AlertDialog picker;
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
 
     public GameFragment() {
         // Required empty public constructor
     }
-public static GameFragment newInstance() {
+    public static GameFragment newInstance() {
         GameFragment fragment = new GameFragment();
 //        Bundle args = new Bundle();
 //
@@ -46,6 +52,8 @@ public static GameFragment newInstance() {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
 
@@ -61,12 +69,9 @@ public static GameFragment newInstance() {
         boardView.setOnCellClickListener((row, col) -> {
             game.placePiece(row, col);
         });
-        game.getBoard().observe(getViewLifecycleOwner(), board -> boardView.setBoard(board));
 
-        game.getGameState().observe(getViewLifecycleOwner(), state -> {
-            if (state == QuartoGameViewModel.GameState.SELECT_PIECE) {
-
-            }
+        game.getBoard().observe(getViewLifecycleOwner(), board -> {
+            boardView.setBoard(board);
         });
 
         game.getWinner().observe(getViewLifecycleOwner(), winner -> {
@@ -77,6 +82,10 @@ public static GameFragment newInstance() {
                 builder.setMessage("It's a tie!");
             } else if (winner.equals("player 1")) {
                 builder.setMessage("Player 1 wins!");
+
+                // Add 1 score to logged in user in firestore scores collection
+                db.collection("scores").document(mAuth.getCurrentUser().getUid()).update("score", FieldValue.increment(1));
+
             } else if (winner.equals("player 2")) {
                 builder.setMessage("Player 2 wins!");
             }

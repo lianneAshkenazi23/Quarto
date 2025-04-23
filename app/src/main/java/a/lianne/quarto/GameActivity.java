@@ -1,23 +1,33 @@
 package a.lianne.quarto;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
@@ -42,13 +52,24 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_game);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(0, 0, 0, 0);
-            return insets;
-        });
+
+
+
+
+        MaterialToolbar topBar = findViewById(R.id.topBar);
+        setSupportActionBar(topBar);
+
+
+        drawer = findViewById(R.id.main);
+        toggle = new ActionBarDrawerToggle(this, drawer, topBar, R.string.open, R.string.close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        Window window = getWindow();
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.pink));
+
+
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -69,13 +90,6 @@ public class GameActivity extends AppCompatActivity {
                 }
         });
 
-        MaterialToolbar topBar = findViewById(R.id.topBar);
-        setSupportActionBar(topBar);
-
-        drawer = findViewById(R.id.main);
-        toggle = new ActionBarDrawerToggle(this, drawer, topBar, R.string.open, R.string.close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
 
         // hamburger menu
         NavigationView nav = findViewById(R.id.sideNav);
@@ -104,37 +118,30 @@ public class GameActivity extends AppCompatActivity {
             return false;
         });
 
+        Menu menu = nav.getMenu();
+        MenuItem logoutItem = menu.findItem(R.id.menu_logout);
+        SpannableString s = new SpannableString(logoutItem.getTitle());
+        s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color.bright_pink)), 0, s.length(), 0);
+        // bold
+        s.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, s.length(), 0);
+        logoutItem.setTitle(s);
+
+
         if(savedInstanceState == null) {
             switchToGames();
         }
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (drawer.isDrawerOpen(GravityCompat.START)) {
+                    drawer.closeDrawer(GravityCompat.START);
+                } else {
+                    finish();
+                }
 
-    // 3 dots menu
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (toggle.onOptionsItemSelected(item)) return true;
-        if (item.getItemId() == R.id.menu_game) {
-            switchToGames();
-            return true;
-        } else if (item.getItemId() == R.id.menu_rules) {
-            switchToRules();
-            return true;
-        }
-        else if (item.getItemId() == R.id.menu_reminder) {
-            switchToReminder();
-            return true;
-        }
-        else if (item.getItemId() == R.id.menu_leaderboard) {
-            switchToLeaderboard();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+            }
+        });
     }
 
     public void switchToGames() {

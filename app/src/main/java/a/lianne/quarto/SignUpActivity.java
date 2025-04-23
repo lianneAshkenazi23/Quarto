@@ -102,7 +102,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void navigateToGame() {
         Intent intent = new Intent(SignUpActivity.this, GameActivity.class);
         startActivity(intent);
-        finish(); // Optional: finish SignUpActivity so user can't go back
+        finish();
     }
 
     private void showError(String message, Exception e) {

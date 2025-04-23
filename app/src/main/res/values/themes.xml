@@ -4,6 +4,8 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">#FFC0CB</item>
+        <item name="colorPrimaryDark">#FFC0CB</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
     </style>
 
     <style name="Theme.Quarto" parent="Base.Theme.Quarto" />

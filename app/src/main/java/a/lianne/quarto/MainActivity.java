@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
+    TextView logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         Button enterButton = findViewById(R.id.enterButton);
-        TextView logoutButton = findViewById(R.id.logoutButton);
+        logoutButton = findViewById(R.id.logoutButton);
 
         if (mAuth.getCurrentUser() != null) {
             logoutButton.setVisibility(View.VISIBLE);
@@ -51,6 +52,19 @@ public class MainActivity extends AppCompatActivity {
             mAuth.signOut();
             logoutButton.setVisibility(View.GONE);
         });
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (mAuth.getCurrentUser() != null) {
+            logoutButton.setVisibility(View.VISIBLE);
+        } else {
+            logoutButton.setVisibility(View.GONE);
+        }
     }
 }
+
+
+

@@ -6,22 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backgroundofquatroapp"
-    tools:context=".GameActivity">
+    tools:context=".GameActivity"
+    android:fitsSystemWindows="true">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        >
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
-            app:popupTheme="@style/ThemeOverlay.Material3.Light"
+            android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
             />
 
-        <androidx.fragment.app.FragmentContainerView
+        <FrameLayout
             android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -35,7 +36,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:paddingTop="?attr/actionBarSize"
+
         app:menu="@menu/main_menu"
-        app:headerLayout="@layout/drawer_header" />
+        app:headerLayout="@layout/drawer_header"
+        />
 
 </androidx.drawerlayout.widget.DrawerLayout>
