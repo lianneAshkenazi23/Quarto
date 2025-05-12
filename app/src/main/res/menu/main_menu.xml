@@ -2,20 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_game"
+        android:icon="@drawable/ic_game"
         android:title="Play the game!" />
     <item
         android:id="@+id/menu_rules"
+        android:icon="@drawable/ic_rules"
         android:title="Read the rules" />
     <item
         android:id="@+id/menu_reminder"
+        android:icon="@drawable/ic_reminder"
         android:title="Set a daily reminder!" />
     <item
         android:id="@+id/menu_leaderboard"
+        android:icon="@drawable/ic_leaderboard"
         android:title="Watch the Leaderboard" />
 
     <item
         android:id="@+id/menu_logout"
+        android:icon="@drawable/ic_logout"
         android:title="Logout" />
-
 
 </menu>

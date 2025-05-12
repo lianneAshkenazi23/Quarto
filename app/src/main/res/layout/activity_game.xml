@@ -38,6 +38,9 @@
         android:layout_gravity="start"
         android:paddingTop="?attr/actionBarSize"
 
+        android:background="@color/pink"
+        app:itemTextColor="@color/bright_pink"
+
         app:menu="@menu/main_menu"
         app:headerLayout="@layout/drawer_header"
         />
