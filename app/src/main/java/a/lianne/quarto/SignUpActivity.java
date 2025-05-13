@@ -100,7 +100,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void navigateToGame() {
-        Intent intent = new Intent(SignUpActivity.this, GameActivity.class);
+        Intent intent = new Intent(SignUpActivity.this, MenuActivity.class);
         startActivity(intent);
         finish();
     }

@@ -42,7 +42,7 @@ public class SignInActivity extends AppCompatActivity {
             else {
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(SignInActivity.this, task -> {
                     if (task.isSuccessful()) {
-                        Intent intent = new Intent(SignInActivity.this, GameActivity.class);
+                        Intent intent = new Intent(SignInActivity.this, MenuActivity.class);
                         startActivity(intent);
                         Toast.makeText(SignInActivity.this, "Signed in successfully!", Toast.LENGTH_SHORT).show();
                         finish();

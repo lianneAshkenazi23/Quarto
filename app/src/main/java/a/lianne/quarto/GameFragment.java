@@ -17,7 +17,6 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class GameFragment extends Fragment {
@@ -75,25 +74,7 @@ public class GameFragment extends Fragment {
         });
 
         game.getWinner().observe(getViewLifecycleOwner(), winner -> {
-            // Show dialog of game over
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-            builder.setTitle("Game Over");
-            if (winner.equals("tie")) {
-                builder.setMessage("It's a tie!");
-            } else if (winner.equals("player 1")) {
-                builder.setMessage("Player 1 wins!");
-
-                // Add 1 score to logged in user in firestore scores collection
-                db.collection("scores").document(mAuth.getCurrentUser().getUid()).update("score", FieldValue.increment(1));
-
-            } else if (winner.equals("player 2")) {
-                builder.setMessage("Player 2 wins!");
-            }
-            builder.setPositiveButton("OK", (dialog, which) -> {
-                dialog.dismiss();
-            });
-            if (!winner.isEmpty())
-                builder.show();
+            ((GameActivity) requireActivity()).showWinnerDialog(winner);
         });
 
         game.getGameState().observe(getViewLifecycleOwner(), gameState -> {

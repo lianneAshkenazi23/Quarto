@@ -36,6 +36,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
 
@@ -54,8 +55,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-
-
+        String destination = getIntent().getStringExtra("destination");
 
         MaterialToolbar topBar = findViewById(R.id.topBar);
         setSupportActionBar(topBar);
@@ -130,6 +130,12 @@ public class GameActivity extends AppCompatActivity {
         if(savedInstanceState == null) {
             switchToGames();
         }
+        if (destination != null && destination.equals("rules")) {
+            switchToRules();
+        }
+        else if (destination != null && destination.equals("game")) {
+            switchToGames();
+        }
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -171,6 +177,27 @@ public class GameActivity extends AppCompatActivity {
                 .replace(R.id.fragmentContainer, LeaderboardFragment.newInstance())
                 .addToBackStack(null)
                 .commit();
+    }
+
+    public void showWinnerDialog(String winner) {
+        // Show dialog of game over
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Game Over");
+        if (winner.equals("tie")) {
+            builder.setMessage("It's a tie!");
+        } else if (winner.equals("player 1")) {
+            builder.setMessage("Player 1 wins!");
+            // Add 1 score to logged in user in firestore scores collection
+            db.collection("scores").document(mAuth.getCurrentUser().getUid()).update("score", FieldValue.increment(1));
+        } else if (winner.equals("player 2")) {
+            builder.setMessage("Player 2 wins!");
+        }
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            dialog.dismiss();
+            finish();
+        });
+        if (!winner.isEmpty())
+            builder.show();
     }
 
 }

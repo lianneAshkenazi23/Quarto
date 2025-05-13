@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (mAuth.getCurrentUser() != null) {
-                    Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                    Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(MainActivity.this, SignInActivity.class);
