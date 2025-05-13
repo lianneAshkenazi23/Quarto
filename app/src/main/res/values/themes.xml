@@ -3,8 +3,9 @@
     <style name="Base.Theme.Quarto" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="colorPrimary">#FFC0CB</item>
-        <item name="colorPrimaryDark">#FFC0CB</item>
+        <item name="colorPrimary">#FF69B4</item>
+        <item name="colorPrimaryDark">#FF69B4</item>
+        <item name="colorSecondary">#FFC0CB</item>
         <item name="android:statusBarColor">?attr/colorPrimary</item>
     </style>
 
