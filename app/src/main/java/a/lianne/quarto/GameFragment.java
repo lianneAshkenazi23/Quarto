@@ -128,4 +128,8 @@ public class GameFragment extends Fragment {
             ((TextView) view.findViewById(R.id.infoLabel)).setText("Player " + (currentPlayer ? 2 : 1) + " – place the piece");
         }
     }
+
+    public void restartGame() {
+        game.restartGame();
+    }
 }

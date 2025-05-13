@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuartoGameViewModel extends ViewModel {
-
-
     public enum GameState {
         SELECT_PIECE, PLACE_PIECE
     }
@@ -109,5 +107,16 @@ public class QuartoGameViewModel extends ViewModel {
 
     public List<Piece> getAvailablePieces() {
         return availablePieces;
+    }
+
+    public void restartGame() {
+        board.setValue(new QuartoBoard());
+        currentPlayer.setValue(true);
+        chosenPiece.setValue(null);
+        gameState.setValue(GameState.SELECT_PIECE);
+        gameOver.setValue(false);
+        winner.setValue("");
+        availablePieces.clear();
+        initializePieces();
     }
 }

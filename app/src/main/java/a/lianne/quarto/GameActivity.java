@@ -158,6 +158,7 @@ public class GameActivity extends AppCompatActivity {
                 .commit();
     }
 
+
     public void switchToRules() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainer, RulesFragment.newInstance())
@@ -192,9 +193,13 @@ public class GameActivity extends AppCompatActivity {
         } else if (winner.equals("player 2")) {
             builder.setMessage("Player 2 wins!");
         }
-        builder.setPositiveButton("OK", (dialog, which) -> {
+        builder.setPositiveButton("Close", (dialog, which) -> {
             dialog.dismiss();
             finish();
+        });
+        builder.setNegativeButton("Start a new Game", (dialog, which) -> {
+            dialog.dismiss();
+            gameFragment.restartGame();
         });
         if (!winner.isEmpty())
             builder.show();
