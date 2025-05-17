@@ -20,6 +20,7 @@ public class MenuActivity extends AppCompatActivity {
 
         Button playButton = findViewById(R.id.playButton);
         Button rulesButton = findViewById(R.id.rulesButton);
+        Button leaderboardButton = findViewById(R.id.leaderboardButton);
 
         playButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, GameActivity.class);
@@ -32,5 +33,12 @@ public class MenuActivity extends AppCompatActivity {
             intent.putExtra("destination", "rules");
             startActivity(intent);
         });
+
+        leaderboardButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, GameActivity.class);
+            intent.putExtra("destination", "leaderboard");
+            startActivity(intent);
+        });
+
     }
 }

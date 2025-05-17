@@ -113,7 +113,6 @@ public class GameFragment extends Fragment {
             }
 
             picker = new AlertDialog.Builder(requireContext())
-                    .setTitle("Select a piece")
                     .setCancelable(false)
                     .setView(dialog)
                     .show();

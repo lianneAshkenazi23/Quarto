@@ -126,15 +126,20 @@ public class GameActivity extends AppCompatActivity {
         s.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, s.length(), 0);
         logoutItem.setTitle(s);
 
-
+        // If there is no savedInstanceState, open the games fragment
         if(savedInstanceState == null) {
             switchToGames();
         }
+
+        // Take the destination from the intent and switch to the corresponding fragment
         if (destination != null && destination.equals("rules")) {
             switchToRules();
         }
         else if (destination != null && destination.equals("game")) {
             switchToGames();
+        }
+        else if (destination != null && destination.equals("leaderboard")) {
+            switchToLeaderboard();
         }
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
@@ -182,27 +187,41 @@ public class GameActivity extends AppCompatActivity {
 
     public void showWinnerDialog(String winner) {
         // Show dialog of game over
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Game Over");
+        View dialog = getLayoutInflater().inflate(R.layout.dialog_winner, null);
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setView(dialog)
+                .setCancelable(false)
+                .create();
+        TextView winnerTv = dialog.findViewById(R.id.winnerTv);
+
         if (winner.equals("tie")) {
-            builder.setMessage("It's a tie!");
+            winnerTv.setText("It's a tie!");
         } else if (winner.equals("player 1")) {
-            builder.setMessage("Player 1 wins!");
+            winnerTv.setText("Player 1 wins!");
             // Add 1 score to logged in user in firestore scores collection
             db.collection("scores").document(mAuth.getCurrentUser().getUid()).update("score", FieldValue.increment(1));
         } else if (winner.equals("player 2")) {
-            builder.setMessage("Player 2 wins!");
+            winnerTv.setText("Player 2 wins!");
         }
-        builder.setPositiveButton("Close", (dialog, which) -> {
-            dialog.dismiss();
+//        builder.setPositiveButton("Close", (dialog, which) -> {
+//            dialog.dismiss();
+//            finish();
+//        });
+//        builder.setNegativeButton("Start a new Game", (dialog, which) -> {
+//            dialog.dismiss();
+//            gameFragment.restartGame();
+//        });
+        dialog.findViewById(R.id.closeButton).setOnClickListener(v -> {
+            alertDialog.dismiss();
             finish();
         });
-        builder.setNegativeButton("Start a new Game", (dialog, which) -> {
-            dialog.dismiss();
+        dialog.findViewById(R.id.newGameButton).setOnClickListener(v -> {
+            alertDialog.dismiss();
             gameFragment.restartGame();
         });
+
         if (!winner.isEmpty())
-            builder.show();
+            alertDialog.show();
     }
 
 }
